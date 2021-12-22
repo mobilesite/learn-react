@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../Input';
 import { ThemeContext } from '../theme-context';
+import { LanguageContext } from '../language-context';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -14,7 +15,7 @@ export default class Form extends React.Component {
   }
 
   // 使用public class fields实验性语法来定义类的静态属性，把之前定义的ThemeContext对象给到它，这样，在各个生命周期中就可以用this.context来接收了
-  static contextType = ThemeContext;
+  // static contextType = ThemeContext;
 
   onChange = (e) => {
     const target = e.target;
@@ -38,46 +39,61 @@ export default class Form extends React.Component {
 
   render() {
     const theme = this.context;
+    debugger;
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <label htmlFor="name">姓名</label>
-        <Input
-          name="name"
-          id="name"
-          type="text"
-          value={this.state.name}
-          onChange={this.onChange}
-          placeholder="请输入"
-        />
+      <ThemeContext.Consumer>
+        {
+          theme => (
+            <LanguageContext.Consumer>
+              {
+                language => (
+                  <form onSubmit={this.onSubmit}>
+                    <label htmlFor="name">姓名</label>
+                    <Input
+                      name="name"
+                      id="name"
+                      type="text"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                      placeholder="请输入"
+                    />
 
-        <label htmlFor="age">年龄</label>
-        <Input
-          name="age"
-          id="age"
-          type="number"
-          value={this.state.age}
-          onChange={this.onChange}
-        />
+                    <label htmlFor="age">年龄</label>
+                    <Input
+                      name="age"
+                      id="age"
+                      type="number"
+                      value={this.state.age}
+                      onChange={this.onChange}
+                    />
 
-        <label htmlFor="isAgree">是否同意隐私协议</label>
-        <Input
-          name="isAgree"
-          id="isAgree"
-          type="checkbox"
-          checked={this.state.isAgree}
-          onChange={this.onChange}
-        />
+                    <label htmlFor="isAgree">是否同意隐私协议</label>
+                    <Input
+                      name="isAgree"
+                      id="isAgree"
+                      type="checkbox"
+                      checked={this.state.isAgree}
+                      onChange={this.onChange}
+                    />
 
-        <input
-          type="submit"
-          value="提交"
-          style={{
-            backgroundColor: theme.background,
-            color: theme.foreground
-          }}
-        />
-      </form>
+                    <input
+                      type="submit"
+                      value="提交"
+                      value={language.submit}
+                      style={{
+                        backgroundColor: theme.background,
+                        color: theme.foreground
+                      }}
+                    />
+
+                  </form>
+                )
+              }
+            </LanguageContext.Consumer>
+          )
+        }
+      </ThemeContext.Consumer>
     )
   }
 }
