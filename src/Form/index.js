@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from '../Input';
+import { ThemeContext } from '../theme-context';
 
 export default class Form extends React.Component {
   constructor(props) {
@@ -11,6 +12,9 @@ export default class Form extends React.Component {
       isAgree: false
     };
   }
+
+  // 使用public class fields实验性语法来定义类的静态属性，把之前定义的ThemeContext对象给到它，这样，在各个生命周期中就可以用this.context来接收了
+  static contextType = ThemeContext;
 
   onChange = (e) => {
     const target = e.target;
@@ -33,6 +37,8 @@ export default class Form extends React.Component {
   }
 
   render() {
+    const theme = this.context;
+
     return (
       <form onSubmit={this.onSubmit}>
         <label htmlFor="name">姓名</label>
@@ -63,7 +69,14 @@ export default class Form extends React.Component {
           onChange={this.onChange}
         />
 
-        <input type="submit" value="提交"/>
+        <input
+          type="submit"
+          value="提交"
+          style={{
+            backgroundColor: theme.background,
+            color: theme.foreground
+          }}
+        />
       </form>
     )
   }
