@@ -1,13 +1,17 @@
+import React, { Suspense } from 'react';
 import './App.css';
-import BuyButton from './BuyButton';
 import Form from './Form';
+
+const BuyButton = React.lazy(() => import('./BuyButton'));
 
 function App() {
   return (
-    <div className="App">
-      <BuyButton/>
-      <Form/>
-    </div>
+    <Suspense fallback={<div>loading...</div>}>
+      <div className="App">
+        <BuyButton/>
+        <Form/>
+      </div>
+    </Suspense>
   );
 }
 
