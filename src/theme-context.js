@@ -12,5 +12,7 @@ export const themes = {
 };
 
 export const ThemeContext = React.createContext(
-  themes.dark // 默认值
+  {
+    theme: themes.dark, // 默认值
+  }
 );

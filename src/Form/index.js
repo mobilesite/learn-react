@@ -38,13 +38,10 @@ export default class Form extends React.Component {
   }
 
   render() {
-    const theme = this.context;
-    debugger;
-
     return (
       <ThemeContext.Consumer>
         {
-          theme => (
+          ({theme}) => (
             <LanguageContext.Consumer>
               {
                 language => (
@@ -79,7 +76,6 @@ export default class Form extends React.Component {
 
                     <input
                       type="submit"
-                      value="提交"
                       value={language.submit}
                       style={{
                         backgroundColor: theme.background,

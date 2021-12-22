@@ -2,10 +2,12 @@ import React from 'react';
 
 export const languages = {
   zhCn: {
-    submit: '提交'
+    submit: '提交',
+    switch: '切换语言'
   },
   en: {
-    submit: 'submit'
+    submit: 'submit',
+    switch: 'toggle language'
   }
 }
 
